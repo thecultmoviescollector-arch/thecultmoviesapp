@@ -16,24 +16,45 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="TheCultMoviesApp">
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <!-- Collegamento al Manifest per Android, Chrome e altri browser -->
     <link rel="manifest" href="manifest.json?v=1">
     <meta name="theme-color" content="#000000">
 
-    <style>
-        html, body { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            background-color: #000000; color: #ffffff; 
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; box-sizing: border-box; padding: 20px;
-        }
-        .btn-install {
-            background-color: #ffffff; color: #000000; font-weight: bold;
-            padding: 12px 24px; border-radius: 8px; border: none;
-            cursor: pointer; font-size: 16px; text-decoration: none; margin-top: 20px;
-        }
-    </style>
+   <style>
+    html, body { 
+        margin: 0; 
+        padding: 0; 
+        width: 100%; 
+        height: 100%; 
+        background-color: #000000; 
+        color: #ffffff; 
+        font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
+        align-items: center;
+        text-align: center; 
+        box-sizing: border-box; 
+        /* Sostituisce il padding fisso con un padding dinamico che rispetta i bordi dello schermo e le safe areas */
+        padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+    }
+    .btn-install {
+        background-color: #ffffff; 
+        color: #000000; 
+        font-weight: bold;
+        padding: 12px 24px; 
+        border-radius: 8px; 
+        border: none;
+        cursor: pointer; 
+        font-size: 16px; 
+        text-decoration: none; 
+        margin-top: 20px;
+    }
+</style>
 </head>
 <body>
 
