@@ -10,10 +10,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=1">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=1">
 
-    <!-- Supporto per Apple iOS (La riga del tuo test funzionante) -->
+    <!-- Supporto per Apple iOS (La riga del tuo test funzionante adattata al tuo file) -->
     <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="TheCultMoviesApp">
 
     <!-- Collegamento al Manifest per Android, Chrome e altri browser -->
@@ -23,29 +23,26 @@
     <meta name="theme-color" content="#000000">
 
     <style>
+        /* Questo stile serve a far espandere l'app di Google a tutto schermo senza bordi bianchi */
         html, body { 
             margin: 0; 
             padding: 0; 
             width: 100%; 
-            height: 100%;
-            height: 100vh;
+            height: 100%; 
             overflow: hidden; 
-            background-color: #000000;
-            box-sizing: border-box;
+            background-color: #000000; 
         }
         iframe { 
             width: 100%; 
-            height: 100%;
+            height: 100%; 
             border: none; 
-            display: block;
-            padding-top: env(safe-area-inset-top, 0px);
-            box-sizing: border-box;
+            display: block; 
         }
     </style>
 </head>
 <body>
 
-    <!-- Sostituisci l'URL qui sotto con il link reale della tua Web App di Google Script -->
+    <!-- Sostituisci l'URL qui sotto con il link reale della tua Web App di Google Script (lascia le virgolette) -->
     <iframe src="https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec"></iframe>
 
 </body>
