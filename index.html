@@ -138,20 +138,30 @@ html, body {
 .nav-icon {
   font-size: 18px;
 }
+  .nav-svg {
+  width: 22px;
+  height: 22px;
+  stroke: #aaaaaa; /* Colore grigio quando non selezionato */
+  transition: stroke 0.2s;
+}
+.nav-item.active .nav-svg {
+  stroke: #ffffff; /* Diventa bianca quando la categoria è attiva */
+}
+
 </style>
 </head>
 <body>
 
   <!-- SCHERMATA DI BENVENUTO (Si vede solo se aperta nel normale browser) -->
   <div id="welcomeScreen" class="welcome-screen">
-    <h2>The Cult Movies Collector</h2>
+    
     <p>Per avviare l'applicazione a schermo intero senza barre del browser, aggiungila alla schermata Home del tuo telefono e aprila da lì.</p>
     <a href="https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec" class="btn-install">
       Apri nel Browser
     </a>
   </div>
 
-  <!-- INTERFACCIA APP NATIVA (Si attiva solo quando viene aperta dalla Home dello schermo) -->
+   <!-- INTERFACCIA APP NATIVA (Si attiva solo quando viene aperta dalla Home dello schermo) -->
   <div id="appInterface" class="app-container">
     
     <!-- Testata fissa VUOTA (Mantiene solo la sfocatura per proteggere l'area dell'ora/batteria) -->
@@ -170,12 +180,63 @@ html, body {
 
 
 <script>
-  // Controllo intelligente: l'utente ha aperto l'app dall'icona della Home (standalone)?
+  // Definizione dei pulsanti di navigazione per la Home con icone SVG moderne e minimali
+  const menuButtonsHTML = `
+    <a href="#" class="nav-item active" onclick="changeAppPage('catalogo', this)">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+        <line x1="7" y1="2" x2="7" y2="22"></line>
+        <line x1="17" y1="2" x2="17" y2="22"></line>
+        <line x1="2" y1="12" x2="22" y2="12"></line>
+        <line x1="2" y1="7" x2="7" y2="7"></line>
+        <line x1="2" y1="17" x2="7" y2="17"></line>
+        <line x1="17" y1="17" x2="22" y2="17"></line>
+        <line x1="17" y1="7" x2="22" y2="7"></line>
+      </svg>
+      <span>Catalogo</span>
+    </a>
+    <a href="#" class="nav-item" onclick="changeAppPage('preordini', this)">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+      </svg>
+      <span>Preordini</span>
+    </a>
+    <a href="#" class="nav-item" onclick="changeAppPage('profilo', this)">
+      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <span>Profilo</span>
+    </a>
+  `;
+
+  // 1. Controllo apertura da Schermata Home (PWA) - SOSTITUISCE IL VECCHIO SCRIPTI
   if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-    // Nascondiamo il messaggio di benvenuto e mostriamo l'interfaccia dell'app a schermo intero
     document.getElementById('welcomeScreen').style.display = 'none';
     document.getElementById('appInterface').style.display = 'block';
   }
+
+  // 2. Funzione per cambiare pagina dentro Google Apps Script
+  function changeAppPage(pageName, element) {
+    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+    element.classList.add('active');
+
+    const iframe = document.getElementById('appFrame');
+    // CORRETTO: Usiamo '*' per consentire l'invio sicuro a Google Apps Script
+    iframe.contentWindow.postMessage({ action: 'navigate', page: pageName }, '*');
+  }
+
+  // 3. Ascolta i messaggi di Login/Logout da Google Script
+  window.addEventListener('message', function(event) {
+    if (!event.origin.includes('script.google.com')) return;
+
+    if (event.data.status === 'loggedIn') {
+      document.getElementById('appFooter').innerHTML = menuButtonsHTML;
+    } 
+    else if (event.data.status === 'loggedOut') {
+      document.getElementById('appFooter').innerHTML = '';
+    }
+  });
 </script>
 
 </body>
