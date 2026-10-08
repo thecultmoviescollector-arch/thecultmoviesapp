@@ -153,30 +153,21 @@ html, body {
 
   <!-- INTERFACCIA APP NATIVA (Si attiva solo quando viene aperta dalla Home dello schermo) -->
   <div id="appInterface" class="app-container">
-    <!-- Testata sfocata fissa che copre l'ora e la batteria -->
+    
+    <!-- Testata fissa VUOTA (Mantiene solo la sfocatura per proteggere l'area dell'ora/batteria) -->
     <header class="app-header">
-      <h2>The Cult Movies Collector</h2>
+      <!-- La scritta h2 è stata rimossa -->
     </header>
 
-    <!-- La tua applicazione Google ospitata in modo protetto all'interno della PWA -->
-    <iframe class="app-frame" src="https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec"></iframe>
+    <!-- La tua applicazione Google -->
+    <iframe id="appFrame" class="app-frame" src="https://google.com"></iframe>
 
-    <!-- Barra inferiore fissa che copre le fasce di navigazione del telefono -->
-    <footer class="app-footer">
-      <a href="#" class="nav-item active">
-        <span class="nav-icon">🎬</span>
-        <span>Catalogo</span>
-      </a>
-      <a href="#" class="nav-item">
-        <span class="nav-icon">⭐</span>
-        <span>Preordini</span>
-      </a>
-      <a href="#" class="nav-item">
-        <span class="nav-icon">⚙️</span>
-        <span>Profilo</span>
-      </a>
+    <!-- Barra inferiore fissa (Inizialmente vuota per il Login, i pulsanti appariranno dopo) -->
+    <footer class="app-footer" id="appFooter">
+      <!-- Contenuto dinamico gestito dallo script -->
     </footer>
   </div>
+
 
 <script>
   // Controllo intelligente: l'utente ha aperto l'app dall'icona della Home (standalone)?
