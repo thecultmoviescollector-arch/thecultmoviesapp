@@ -66,9 +66,9 @@ html, body {
   display: inline-block;
 }
 
-/* 3. CONTENITORE DELL'APP REALE (Nascosto all'inizio, si attiva dalla Home) */
+/* 3. CONTENITORE DELL'APP REALE */
 .app-container {
-  display: none; /* Diventa block via JavaScript se aperta dalla home */
+  display: none; /* Diventa attivo via JS solo se aperto dalla Home dello schermo */
   width: 100%;
   height: 100%;
   position: relative;
@@ -79,8 +79,8 @@ html, body {
   width: 100%;
   height: 100%;
   border: none;
-  padding-top: calc(env(safe-area-inset-top, 20px) + 50px);   /* Spazio per l'header sfocato */
-  padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 70px); /* Spazio per la barra in basso */
+  padding-top: calc(env(safe-area-inset-top, 20px) + 15px);   /* Spazio ridotto per l'header sfocato pulito */
+  padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 65px); /* Spazio per la barra in basso */
   box-sizing: border-box;
   background-color: #000000;
 }
@@ -100,14 +100,8 @@ html, body {
   padding-bottom: 12px;
   text-align: center;
 }
-.app-header h2 {
-  margin: 0;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  color: #ffffff;
-}
 
-/* 5. BARRA INFERIORE FISSA */
+/* 5. BARRA INFERIORE FISSA (Sfondo nero protettivo sempre attivo per le bande) */
 .app-footer {
   position: fixed;
   bottom: 0;
@@ -122,6 +116,7 @@ html, body {
   padding-top: 10px;
   padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 6px);
 }
+
 .nav-item {
   color: #aaaaaa;
   text-decoration: none;
@@ -135,109 +130,82 @@ html, body {
   color: #ffffff;
   font-weight: bold;
 }
-.nav-icon {
-  font-size: 18px;
-}
-  .nav-svg {
+.nav-svg {
   width: 22px;
   height: 22px;
-  stroke: #aaaaaa; /* Colore grigio quando non selezionato */
+  stroke: #aaaaaa;
   transition: stroke 0.2s;
 }
 .nav-item.active .nav-svg {
-  stroke: #ffffff; /* Diventa bianca quando la categoria è attiva */
+  stroke: #ffffff;
 }
-
 </style>
 </head>
 <body>
 
   <!-- SCHERMATA DI BENVENUTO (Si vede solo se aperta nel normale browser) -->
   <div id="welcomeScreen" class="welcome-screen">
-    
     <p>Per avviare l'applicazione a schermo intero senza barre del browser, aggiungila alla schermata Home del tuo telefono e aprila da lì.</p>
-    <a href="https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec" class="btn-install">
+    <a href="https://google.com" class="btn-install">
       Apri nel Browser
     </a>
   </div>
 
-   <!-- INTERFACCIA APP NATIVA (Si attiva solo quando viene aperta dalla Home dello schermo) -->
+  <!-- INTERFACCIA APP NATIVA (Si attiva quando viene aperta dalla Home del telefono) -->
   <div id="appInterface" class="app-container">
-    
-    <!-- Testata fissa VUOTA (Mantiene solo la sfocatura per proteggere l'area dell'ora/batteria) -->
-    <header class="app-header">
-      <!-- La scritta h2 è stata rimossa -->
-    </header>
+    <!-- Testata fissa vuota sfocata per proteggere l'area dell'ora/batteria -->
+    <header class="app-header"></header>
 
-    <!-- La tua applicazione Google -->
+    <!-- L'iframe caricato immediatamente -->
     <iframe id="appFrame" class="app-frame" src="https://google.com"></iframe>
 
-    <!-- Barra inferiore fissa (Inizialmente vuota per il Login, i pulsanti appariranno dopo) -->
+    <!-- Barra inferiore fissa con i tuoi pulsanti SVG pronti -->
     <footer class="app-footer" id="appFooter">
-      <!-- Contenuto dinamico gestito dallo script -->
+      <a href="#" class="nav-item active" onclick="changeAppPage('catalogo', this)">
+        <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+          <line x1="7" y1="2" x2="7" y2="22"></line>
+          <line x1="17" y1="2" x2="17" y2="22"></line>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <line x1="2" y1="7" x2="7" y2="7"></line>
+          <line x1="2" y1="17" x2="7" y2="17"></line>
+          <line x1="17" y1="17" x2="22" y2="17"></line>
+          <line x1="17" y1="7" x2="22" y2="7"></line>
+        </svg>
+        <span>Catalogo</span>
+      </a>
+      <a href="#" class="nav-item" onclick="changeAppPage('preordini', this)">
+        <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Preordini</span>
+      </a>
+      <a href="#" class="nav-item" onclick="changeAppPage('profilo', this)">
+        <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span>Profilo</span>
+      </a>
     </footer>
   </div>
 
-
 <script>
-  // Definizione dei pulsanti di navigazione per la Home con icone SVG moderne e minimali
-  const menuButtonsHTML = `
-    <a href="#" class="nav-item active" onclick="changeAppPage('catalogo', this)">
-      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
-        <line x1="7" y1="2" x2="7" y2="22"></line>
-        <line x1="17" y1="2" x2="17" y2="22"></line>
-        <line x1="2" y1="12" x2="22" y2="12"></line>
-        <line x1="2" y1="7" x2="7" y2="7"></line>
-        <line x1="2" y1="17" x2="7" y2="17"></line>
-        <line x1="17" y1="17" x2="22" y2="17"></line>
-        <line x1="17" y1="7" x2="22" y2="7"></line>
-      </svg>
-      <span>Catalogo</span>
-    </a>
-    <a href="#" class="nav-item" onclick="changeAppPage('preordini', this)">
-      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-      </svg>
-      <span>Preordini</span>
-    </a>
-    <a href="#" class="nav-item" onclick="changeAppPage('profilo', this)">
-      <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-      </svg>
-      <span>Profilo</span>
-    </a>
-  `;
-
-  // 1. Controllo apertura da Schermata Home (PWA) - SOSTITUISCE IL VECCHIO SCRIPTI
+  // 1. Controllo apertura da Schermata Home (PWA)
   if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
     document.getElementById('welcomeScreen').style.display = 'none';
-    document.getElementById('appInterface').style.display = 'block';
+    document.getElementById('appInterface').style.display = 'block'; // Accende subito l'interfaccia!
   }
 
-  // 2. Funzione per cambiare pagina dentro Google Apps Script
+  // 2. Funzione per inviare comandi di cambio pagina all'iframe di Google Script
   function changeAppPage(pageName, element) {
     document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
     element.classList.add('active');
 
     const iframe = document.getElementById('appFrame');
-    // CORRETTO: Usiamo '*' per consentire l'invio sicuro a Google Apps Script
+    // Invia il messaggio in modo sicuro a Google Apps Script
     iframe.contentWindow.postMessage({ action: 'navigate', page: pageName }, '*');
   }
-
-  // 3. Ascolta i messaggi di Login/Logout da Google Script
-  window.addEventListener('message', function(event) {
-    if (!event.origin.includes('script.google.com')) return;
-
-    if (event.data.status === 'loggedIn') {
-      document.getElementById('appFooter').innerHTML = menuButtonsHTML;
-    } 
-    else if (event.data.status === 'loggedOut') {
-      document.getElementById('appFooter').innerHTML = '';
-    }
-  });
 </script>
-
 </body>
 </html>
