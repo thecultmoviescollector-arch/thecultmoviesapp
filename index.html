@@ -13,7 +13,9 @@
     <!-- Supporto per Apple iOS (La riga del tuo test funzionante adattata al tuo file) -->
     <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- CAMBIATO: da black-translucent a black. Questo evita che iOS sovrapponga l'app alla barra di stato nera di sistema -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="TheCultMoviesApp">
 
     <!-- Collegamento al Manifest per Android, Chrome e altri browser -->
@@ -23,35 +25,34 @@
     <meta name="theme-color" content="#000000">
 
     <style>
-        /* Forza l'applicazione a riempire lo schermo senza spostamenti */
+        /* Gestione millimetrica dello spazio sullo schermo */
         html, body { 
             margin: 0; 
             padding: 0; 
             width: 100%; 
             height: 100%;
-            height: 100dvh; /* Forza l'altezza dinamica sui dispositivi mobili */
+            height: 100vh;
             overflow: hidden; 
-            background-color: #000000; 
-            position: fixed; /* Evita sobbalzi o scorrimenti della pagina guscio */
-            top: 0;
-            left: 0;
+            background-color: #000000;
+            box-sizing: border-box;
         }
+        
         iframe { 
             width: 100%; 
-            height: 100%; 
-            height: 100dvh;
+            height: 100%;
             border: none; 
             display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
+            
+            /* Gestione dello spazio sicuro per evitare che l'app scivoli sotto la barra della batteria/ora */
+            padding-top: env(safe-area-inset-top, 0px);
+            box-sizing: border-box;
         }
     </style>
 </head>
 <body>
 
-    <!-- Sostituisci l'URL qui sotto con il link reale della tua Web App di Google Script (lascia le virgolette) -->
-    <iframe src="https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec"></iframe>
+    <!-- Ricordati di rimettere il tuo URL reale di Google Apps Script (lascia le virgolette) -->
+    <iframe src="IL_TUO_URL_DI_GOOGLE_APPS_SCRIPT_QUI"></iframe>
 
 </body>
 </html>
