@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>The Cult Movies Collector</title>
 
-    <!-- Favicon Standard per Browser Desktop -->
+    <!-- Favicon Standard per Browser Desktop (Usa le tue icone) -->
     <link rel="icon" href="favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=1">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=1">
@@ -13,7 +13,7 @@
     <!-- Supporto per Apple iOS (La riga del tuo test funzionante) -->
     <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="TheCultMoviesApp">
 
     <!-- Collegamento al Manifest per Android, Chrome e altri browser -->
@@ -22,12 +22,31 @@
     <!-- Colore della barra del browser su Android -->
     <meta name="theme-color" content="#000000">
 
-    <script>
-        // REINDIRIZZAMENTO ISTANTANEO: Lancia l'app originale fuori dall'iframe
-        // Sostituisci il link qui sotto con il tuo URL reale di Google Apps Script (lascia le virgolette)
-        window.location.replace("https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec");
-    </script>
+    <style>
+        html, body { 
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100%;
+            height: 100vh;
+            overflow: hidden; 
+            background-color: #000000;
+            box-sizing: border-box;
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%;
+            border: none; 
+            display: block;
+            padding-top: env(safe-area-inset-top, 0px);
+            box-sizing: border-box;
+        }
+    </style>
 </head>
-<body style="background-color: #000000;">
+<body>
+
+    <!-- Sostituisci l'URL qui sotto con il link reale della tua Web App di Google Script -->
+    <iframe src="https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec"></iframe>
+
 </body>
 </html>
