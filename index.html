@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>The Cult Movies Collector</title>
 
     <!-- Favicon Standard per Browser Desktop (Usa le tue icone) -->
@@ -21,9 +21,29 @@
 
     <!-- Colore della barra del browser su Android -->
     <meta name="theme-color" content="#000000">
+
+    <style>
+        /* Questo stile serve a far espandere l'app di Google a tutto schermo senza bordi bianchi */
+        html, body { 
+            margin: 0; 
+            padding: 0; 
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+            background-color: #000000; 
+        }
+        iframe { 
+            width: 100%; 
+            height: 100%; 
+            border: none; 
+            display: block; 
+        }
+    </style>
 </head>
 <body>
-    <h1>La mia Nuova Web App</h1>
-    <p>Le icone universali sono configurate correttamente!</p>
+
+    <!-- Sostituisci l'URL qui sotto con il link reale della tua Web App di Google Script (lascia le virgolette) -->
+    <iframe src="https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec"></iframe>
+
 </body>
 </html>
