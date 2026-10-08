@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>The Cult Movies Collector</title>
 
-<!-- Favicon Standard per Browser Desktop (Le tue icone) -->
+<!-- Favicon Standard per Browser Desktop -->
 <link rel="icon" href="favicon.ico?v=1" type="image/x-icon">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=1">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=1">
@@ -21,34 +21,170 @@
 <meta name="theme-color" content="#000000">
 
 <style>
+/* 1. RESET SCHERMO INTERO - Blocca qualsiasi barra bianca o rimbalzo */
 html, body { 
-margin: 0; padding: 0; width: 100%; height: 100%; 
-background-color: #000000; color: #ffffff; 
-font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-display: flex; flex-direction: column; justify-content: center; align-items: center;
-text-align: center; box-sizing: border-box; padding: 20px;
+  margin: 0; 
+  padding: 0; 
+  width: 100%; 
+  height: 100dvh; /* Usa l'altezza dinamica per eliminare lo scorrimento del browser */
+  background-color: #000000; 
+  color: #ffffff; 
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden; /* Impedisce fisicamente al browser di muoversi */
+  box-sizing: border-box;
 }
+
+/* 2. SCHERMATA INIZIALE (Prima dell'installazione) */
+.welcome-screen {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+  text-align: center; 
+  height: 100%;
+  width: 100%;
+  padding: 24px;
+  box-sizing: border-box;
+}
+.welcome-screen p {
+  color: #aaaaaa;
+  max-width: 320px;
+  line-height: 1.5;
+  margin-bottom: 25px;
+}
+
 .btn-install {
-background-color: #ffffff; color: #000000; font-weight: bold;
-padding: 12px 24px; border-radius: 8px; border: none;
-cursor: pointer; font-size: 16px; text-decoration: none; margin-top: 20px;
+  background-color: #ffffff; 
+  color: #000000; 
+  font-weight: bold;
+  padding: 14px 28px; 
+  border-radius: 8px; 
+  border: none;
+  cursor: pointer; 
+  font-size: 16px; 
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* 3. CONTENITORE DELL'APP REALE (Nascosto all'inizio, si attiva dalla Home) */
+.app-container {
+  display: none; /* Diventa block via JavaScript se aperta dalla home */
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* L'iframe che ingloba Google Apps Script a tutto schermo sotto i menu */
+.app-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding-top: calc(env(safe-area-inset-top, 20px) + 50px);   /* Spazio per l'header sfocato */
+  padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 70px); /* Spazio per la barra in basso */
+  box-sizing: border-box;
+  background-color: #000000;
+}
+
+/* 4. TESTATA SUPERIORE SFOCATA (Stile Amazon/Apple) */
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.6); 
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); /* Compatibilità iOS */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: env(safe-area-inset-top, 20px); 
+  padding-bottom: 12px;
+  text-align: center;
+}
+.app-header h2 {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+/* 5. BARRA INFERIORE FISSA */
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  background-color: #111111;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 6px);
+}
+.nav-item {
+  color: #aaaaaa;
+  text-decoration: none;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.nav-item.active {
+  color: #ffffff;
+  font-weight: bold;
+}
+.nav-icon {
+  font-size: 18px;
 }
 </style>
 </head>
 <body>
 
-<h2>The Cult Movies Collector</h2>
-<p>Tocca il pulsante in basso per aprire l'applicazione in modalità protetta con tutte le grafiche attive.</p>
+  <!-- SCHERMATA DI BENVENUTO (Si vede solo se aperta nel normale browser) -->
+  <div id="welcomeScreen" class="welcome-screen">
+    <h2>The Cult Movies Collector</h2>
+    <p>Per avviare l'applicazione a schermo intero senza barre del browser, aggiungila alla schermata Home del tuo telefono e aprila da lì.</p>
+    <a href="https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec" class="btn-install">
+      Apri nel Browser
+    </a>
+  </div>
 
-<!-- Sostituisci il link qui sotto con il tuo vero URL originale di Google Apps Script -->
-    <a href=""https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec" class="btn-install">Apri Applicazione</a>
+  <!-- INTERFACCIA APP NATIVA (Si attiva solo quando viene aperta dalla Home dello schermo) -->
+  <div id="appInterface" class="app-container">
+    <!-- Testata sfocata fissa che copre l'ora e la batteria -->
+    <header class="app-header">
+      <h2>The Cult Movies Collector</h2>
+    </header>
+
+    <!-- La tua applicazione Google ospitata in modo protetto all'interno della PWA -->
+    <iframe class="app-frame" src="https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec"></iframe>
+
+    <!-- Barra inferiore fissa che copre le fasce di navigazione del telefono -->
+    <footer class="app-footer">
+      <a href="#" class="nav-item active">
+        <span class="nav-icon">🎬</span>
+        <span>Catalogo</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">⭐</span>
+        <span>Preordini</span>
+      </a>
+      <a href="#" class="nav-item">
+        <span class="nav-icon">⚙️</span>
+        <span>Profilo</span>
+      </a>
+    </footer>
+  </div>
 
 <script>
-// Se l'utente apre l'app DIRETTAMENTE dalla Home del telefono (standalone)
-if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-// Lo mandiamo all'indirizzo originale pulito così Google mostra l'interfaccia corretta con i loghi
-window.location.href = "https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec";
-}
+  // Controllo intelligente: l'utente ha aperto l'app dall'icona della Home (standalone)?
+  if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+    // Nascondiamo il messaggio di benvenuto e mostriamo l'interfaccia dell'app a schermo intero
+    document.getElementById('welcomeScreen').style.display = 'none';
+    document.getElementById('appInterface').style.display = 'block';
+  }
 </script>
 
 </body>
