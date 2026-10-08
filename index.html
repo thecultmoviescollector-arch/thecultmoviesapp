@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>The Cult Movies Collector</title>
 
-    <!-- Favicon Standard per Browser Desktop (Usa le tue icone) -->
+    <!-- Favicon Standard per Browser Desktop (Le tue icone) -->
     <link rel="icon" href="favicon.ico?v=1" type="image/x-icon">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=1">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?v=1">
 
-    <!-- Supporto per Apple iOS (La riga del tuo test funzionante adattata al tuo file) -->
+    <!-- Supporto per Apple iOS (Icona funzionante sulla Home) -->
     <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,32 +18,38 @@
 
     <!-- Collegamento al Manifest per Android, Chrome e altri browser -->
     <link rel="manifest" href="manifest.json?v=1">
-
-    <!-- Colore della barra del browser su Android -->
     <meta name="theme-color" content="#000000">
 
     <style>
-        /* Questo stile serve a far espandere l'app di Google a tutto schermo senza bordi bianchi */
         html, body { 
-            margin: 0; 
-            padding: 0; 
-            width: 100%; 
-            height: 100%; 
-            overflow: hidden; 
-            background-color: #000000; 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background-color: #000000; color: #ffffff; 
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; box-sizing: border-box; padding: 20px;
         }
-        iframe { 
-            width: 100%; 
-            height: 100%; 
-            border: none; 
-            display: block; 
+        .btn-install {
+            background-color: #ffffff; color: #000000; font-weight: bold;
+            padding: 12px 24px; border-radius: 8px; border: none;
+            cursor: pointer; font-size: 16px; text-decoration: none; margin-top: 20px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Sostituisci l'URL qui sotto con il link reale della tua Web App di Google Script (lascia le virgolette) -->
-    <iframe src="https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec"></iframe>
+    <h2>The Cult Movies Collector</h2>
+    <p>Tocca il pulsante in basso per aprire l'applicazione in modalità protetta con tutte le grafiche attive.</p>
+    
+    <!-- Sostituisci il link qui sotto con il tuo vero URL originale di Google Apps Script -->
+    <a href="IL_TUO_URL_DI_GOOGLE_APPS_SCRIPT_QUI" class="btn-install">Apri Applicazione</a>
+
+    <script>
+        // Se l'utente apre l'app DIRETTAMENTE dalla Home del telefono (standalone)
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            // Lo mandiamo all'indirizzo originale pulito così Google mostra l'interfaccia corretta con i loghi
+            window.location.href = "https://script.google.com/macros/s/AKfycbxYFekITzqlN8TMB8PBukJxOYydrzkO2oFlY7t6w-rHMSyDf_prx0fg86uks28FFdGb/exec";
+        }
+    </script>
 
 </body>
 </html>
