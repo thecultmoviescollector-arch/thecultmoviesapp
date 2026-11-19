@@ -158,6 +158,27 @@ html, body {
     document.getElementById('welcomeScreen').style.display = 'none';
     document.getElementById('appInterface').style.display = 'block';
   }
+
+  // «Resta connesso»: la pagina esterna conserva il codice dell'app (memoria più stabile sul telefono).
+  // Risponde solo se è la pagina principale e solo a richieste che arrivano da Google Apps Script.
+  (function () {
+    var KEY = 'tcmc_remember_parent';
+    function valido(t) { return typeof t === 'string' && /^[a-f0-9]{96}$/.test(t); }
+    window.addEventListener('message', function (e) {
+      try {
+        if (window.top !== window.self) return;
+        if (!/^https:\/\/[a-z0-9-]+\.googleusercontent\.com$/.test(e.origin)) return;
+        var d = e.data;
+        if (!d || d.tcmc !== 1 || !e.source) return;
+        if (d.type === 'set' && valido(d.token)) { localStorage.setItem(KEY, d.token); }
+        else if (d.type === 'clear') { localStorage.removeItem(KEY); }
+        else if (d.type === 'get') {
+          var t = localStorage.getItem(KEY);
+          e.source.postMessage({ tcmc: 1, type: 'value', token: valido(t) ? t : '' }, e.origin);
+        }
+      } catch (err) {}
+    });
+  })();
 </script>
 
 </body>
